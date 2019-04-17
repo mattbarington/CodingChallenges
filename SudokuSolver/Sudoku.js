@@ -6,6 +6,18 @@ class Board {
 			notes[i] = new Set[9];
 		this.unsolved = 81;
 	}
+
+	getColumn(col) {
+		return []
+	}
+
+	getRow(row) {
+		return []
+	}
+
+	getBox(r,c) {
+		return [[]]
+	}
 	
 	solve() {
 		clearRow();
