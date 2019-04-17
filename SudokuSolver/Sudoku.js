@@ -5,9 +5,9 @@ class Board {
 		for (var i = 0 ; i < 9; i++)
 			notes[i] = new Set[9];
 		this.unsolved = 81;
-		this.rows = new Set[9];
-		this.cols = new Set[9];
-		this.boxes = new Set[9];
+		this.rows = new Array();
+		this.cols = new Array();
+		this.boxes = new Array();
 		for (i = 0; i < 9; i++) {
 			for (j = 0; j < 9; j++) {
 				putVal(i, j, board[i][j]);
@@ -32,9 +32,9 @@ class Board {
 	}
 
 	putVal(r, c, val) {
-		this.rows[r].add(val);
-		this.cols[c].add(val);
-		this.boxes[boxNum(r,c)].add(val);
+		this.rows[r].push(val);
+		this.cols[c].push(val);
+		this.boxes[boxNum(r,c)].push(val);
 	}
 
 	solve() {
