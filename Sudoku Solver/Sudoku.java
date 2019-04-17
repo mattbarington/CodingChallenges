@@ -1,3 +1,3 @@
-class Sudoku {
-
+public class Sudoku {
+    
 }
