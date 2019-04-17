@@ -5,20 +5,38 @@ class Board {
 		for (var i = 0 ; i < 9; i++)
 			notes[i] = new Array[9];
 		this.unsolved = 81;
+		this.rows = new Array();
+		this.cols = new Array();
+		this.boxes = new Array();
+		for (i = 0; i < 9; i++) {
+			for (j = 0; j < 9; j++) {
+				putVal(i, j, board[i][j]);
+			}
+		}
 	}
 
-	getColumn(col) {
-		return []
+	boxNum(r,c) {
+		return (c / 3) + (r / 3)*3;
 	}
 
-	getRow(row) {
-		return []
+	getCol(row) {
+		return this.rows[row];
+	}
+
+	getRow(col) {
+		return this.cols[col];
 	}
 
 	getBox(r,c) {
-		return [[]]
+		return this.boxes[boxNum];
 	}
-	
+
+	putVal(r, c, val) {
+		this.rows[r].push(val);
+		this.cols[c].push(val);
+		this.boxes[boxNum(r,c)].push(val);
+	}
+
 	solve() {
 		while (this.unsolved > 0) {
 			for (var i = 0; i < 9; i++) {
