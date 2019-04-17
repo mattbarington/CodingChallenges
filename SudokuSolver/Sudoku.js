@@ -3,7 +3,7 @@ class Board {
 		this.board = board;
 		this.notes = new Array[9];
 		for (var i = 0 ; i < 9; i++)
-			notes[i] = new Set[9];
+			notes[i] = new Array[9];
 		this.unsolved = 81;
 	}
 
@@ -20,17 +20,23 @@ class Board {
 	}
 	
 	solve() {
-		clearRow();
-		clearCol();
-		clearBox();
+		while (this.unsolved > 0) {
+			for (var i = 0; i < 9; i++) {
+				clearRow();
+				clearCol();
+				clearBox();
+			}
+		}
 	}
 	
-	clearRow() {
+	clearRow(r) {
+		var row = getRow(r)
+		this.notes[r] = this.notes[r].filter( ( num ) => !row.includes(num) );
 		
 	}
 	
-	clearCol() {
-		
+	clearCol(col) {
+		get
 	}
 	
 	clearBox() {
