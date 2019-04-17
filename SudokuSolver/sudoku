@@ -1,0 +1,30 @@
+var canvas = document.getElementById("myCanvas");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+var ctx = canvas.getContext("2d");
+
+class Board {
+	constructor (board) {
+		this.board = board;
+		this.notes = new Array[9];
+		for (var i = 0; i < 9; i++)
+			this.notes[i] = new Array[9];
+		this.unsolved = 81;
+	}
+	
+	solve() {
+		clearRow();
+		clearCol();
+		clearBox();
+	}
+	
+	clearRow() {
+		
+	}
+}
+
+function run() {
+	console.log("hello");
+}
+
+run();
