@@ -58,8 +58,11 @@ class Board {
 		let row = getRow(r)
 		for (let i = 0; i < 9; i++) {
 			row.forEach(num => this.notes[r][i].delete(num));
-			if (this.notes[r][i].size == 1)
-				putVal(r, i, this.notes[r][i].values().next().value);	
+			if (this.notes[r][i].size == 1) {
+				putVal(r, i, this.notes[r][i].values().next().value);
+				this.notes[r][i].clear();
+				this.unsolved--;
+			}
 		}
 	}
 	
@@ -69,6 +72,8 @@ class Board {
 			col.forEach(num => this.notes[i][c].delete(num));
 			if (this.notes[i][c].size == 1) {
 				putVal(i, c, this.notes[i][c].values().next().value);
+				this.notes[i][c].clear();
+				this.unsolved--;
 			}
 		}
 	}
@@ -79,8 +84,11 @@ class Board {
 		for (let i = row; i < row + 3; i++) {
 			for (let j = col; j < col + 3; j++) {
 				box.forEach(num => this.notes[i][j].delete(num))
-				if (this.notes[i][j].size == 1)
+				if (this.notes[i][j].size == 1) {
 					putVal(i, j, this.notes[i][j].values().next().value)
+					this.notes[i][j].clear();
+					this.unsolved--;
+				}
 			}
 		}	
 	}
