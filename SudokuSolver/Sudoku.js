@@ -57,10 +57,10 @@ class Board {
 	clearRow(r) {
 		let row = getRow(r)
 		for (let i = 0; i < 9; i++) {
-			this.notes[r][i] = this.notes[r][i].filter(num => !row.has(num));
+			row.forEach(num => this.notes[r][i].delete(num));
 			if (this.notes[r][i].size == 1)
 				putVal(r, i, this.notes[r][i].values().next().value);	
-		}			
+		}
 	}
 	
 	clearCol(c) {
