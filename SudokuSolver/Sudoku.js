@@ -58,8 +58,8 @@ class Board {
 		let row = getRow(r)
 		for (let i = 0; i < 9; i++) {
 			this.notes[r][i] = this.notes[r][i].filter(num => !row.has(num));
-			if (this.notes[r][i].length == 1)
-				putVal(r, i, this.notes[r][i][0]);	
+			if (this.notes[r][i].size == 1)
+				putVal(r, i, this.notes[r][i].values().next().value);	
 		}			
 	}
 	
@@ -73,13 +73,9 @@ class Board {
 		for (let i = row; i < row + 3; i++) {
 			for (let j = col; j < col + 3; j++) {
 				box.forEach(num => this.notes[i][j].delete(num))
-				//this.notes[i, j] = this.notes[i][j].filter(num => !box.has(num));
+				if (this.notes[i][j].size == 1)
+					putVal(i, j, this.notes[i][j].values().next().value)
 			}
-		}
-		this.notes[r] = this.notes[r].filter( ( num ) => !row.includes(num) );
-		for (let i = 0; i < 9; i++) {
-			if (this.notes[r][i].length == 1)
-				putVal(r, i, this.notes[r][i][0]);
 		}	
 	}
 	
