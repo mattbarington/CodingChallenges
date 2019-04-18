@@ -42,14 +42,20 @@ class Board {
 		this.rows[r].add(val);
 		this.cols[c].add(val);
 		this.boxes[boxNum(r,c)].add(val);
+		this.board[r][c] = val
+		this.notes[r][c].clear();
+		this.unsolved--;
 	}
 
 	solve() {
 		while (this.unsolved > 0) {
-			for (var i = 0; i < 9; i++) {
-				clearRow();
-				clearCol();
-				clearBox();
+			for (let i = 0; i < 9; i++) {
+				clearRow(i);
+				clearCol(i);
+				clearBox(i);
+				findLonerInRow(i);
+				findLonerInCol(i);
+				findLonerInBox(i);
 			}
 		}
 	}
@@ -60,8 +66,8 @@ class Board {
 			row.forEach(num => this.notes[r][i].delete(num));
 			if (this.notes[r][i].size == 1) {
 				putVal(r, i, this.notes[r][i].values().next().value);
-				this.notes[r][i].clear();
-				this.unsolved--;
+				// this.notes[r][i].clear();
+				// this.unsolved--;
 			}
 		}
 	}
@@ -72,8 +78,8 @@ class Board {
 			col.forEach(num => this.notes[i][c].delete(num));
 			if (this.notes[i][c].size == 1) {
 				putVal(i, c, this.notes[i][c].values().next().value);
-				this.notes[i][c].clear();
-				this.unsolved--;
+				// this.notes[i][c].clear();
+				// this.unsolved--;
 			}
 		}
 	}
@@ -86,12 +92,51 @@ class Board {
 				box.forEach(num => this.notes[i][j].delete(num))
 				if (this.notes[i][j].size == 1) {
 					putVal(i, j, this.notes[i][j].values().next().value)
-					this.notes[i][j].clear();
-					this.unsolved--;
+					// this.notes[i][j].clear();
+					// this.unsolved--;
 				}
 			}
 		}	
 	}
+
+	findLonerInRow(r) {
+		let counts = Array[10];
+		let lonerExists = true;
+		while (lonerExists) {
+			lonerExists = false;
+			counts.forEach(c => c = 0);
+			for (let i = 0; i < 9; i++) {
+				this.notes[r][i].forEach(p => counts[p]++);
+			}
+			for (let n = 1; n <= 9; n++) {
+				if (counts[n] == 1) {
+					lonerExists = true;
+					for (let i = 0; i < 9; i++) {
+						if (this.notes[r][i].has(n)) {
+							putVal(r,i,n);
+						}
+						// this.notes[r][i].delete(n);
+					}
+				}
+			}
+		} 
+	}
+
+	findLonerInCol(c) {
+		let counts = Array[10];
+		let lonerExists = true;
+		while (lonerExists) {
+			counts.forEach(c => c = 0);
+			for (let i = 0; i < 9; i++) {
+				this.notes[i][c].forEach()
+			}
+		}
+	}
+
+	findLonerInBox(b) {
+
+	}
+
 }
 
 console.log("hello");
