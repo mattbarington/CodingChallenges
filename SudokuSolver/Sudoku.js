@@ -128,7 +128,17 @@ class Board {
 		while (lonerExists) {
 			counts.forEach(c => c = 0);
 			for (let i = 0; i < 9; i++) {
-				this.notes[i][c].forEach()
+				this.notes[i][c].forEach(p => counts[p]++);
+			}
+			for (let n = 1; n <= 9; n++) {
+				if (counts[n] == 1) {
+					lonerExists = true;
+					for (let i = 0; i < 9; i++) {
+						if (this.notes[i][c].has(n)) {
+							putVal(i,c,n);
+						}
+					}
+				}
 			}
 		}
 	}
