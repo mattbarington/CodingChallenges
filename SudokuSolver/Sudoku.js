@@ -1,23 +1,44 @@
+/**
+ * @param {character[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
+ */
 class Board {
+
+    
 	constructor(board) {
 		this.board = board;
-		this.notes = new Array[9];
+		this.notes = new Array(9);
 		for (var i = 0 ; i < 9; i++) {
-			notes[i] = new Array[9];
+			this.notes[i] = new Array(9);
 			for (let j = 0; j < 9; j++)
-				notes[i][j] = new Set()
+				this.notes[i][j] = new Set()
 		}
 		this.unsolved = 81;
-		this.rows = new Set();
-		this.cols = new Set();
-		this.boxes = new Set();
-		for (i = 0; i < 9; i++) {
-			for (j = 0; j < 9; j++) {
-				putVal(i, j, board[i][j]);
+		this.rows = new Array(9);
+		this.cols = new Array(9);
+		this.boxes = new Array(9);
+        for (let i = 0; i < 9; i++) {
+            this.rows[i] = new Set();
+            this.cols[i] = new Set();
+            this.boxes[i] = new Set();
+        }
+		for (let i = 0; i < 9; i++) {
+			for (let j = 0; j < 9; j++) {
+                if (board[i][j] != '.')
+				    this.putVal(i, j, board[i][j]);
 			}
 		}
 	}
 
+    putVal(r, c, val) {
+		this.rows[r].add(val);
+		this.cols[c].add(val);
+		this.boxes[boxNum(r,c)].add(val);
+		this.board[r][c] = val
+		this.notes[r][c].clear();
+		this.unsolved--;
+	}
+    
 	boxCoord(b) {
 		return [(b / 3) * 3, (b % 3) * 3]
 	}
@@ -36,15 +57,6 @@ class Board {
 
 	getBox(r,c) {
 		return this.boxes[boxNum];
-	}
-
-	putVal(r, c, val) {
-		this.rows[r].add(val);
-		this.cols[c].add(val);
-		this.boxes[boxNum(r,c)].add(val);
-		this.board[r][c] = val
-		this.notes[r][c].clear();
-		this.unsolved--;
 	}
 
 	solve() {
@@ -167,7 +179,12 @@ class Board {
 			}
 		}
 	}
-
 }
 
+
+var solveSudoku = function(board) {
+    var b = new Board(board)
+    b.solve()
+    board = b.board
+};
 console.log("hello");
