@@ -66,9 +66,9 @@ class Board {
 	clearCol(c) {
 		let col = getCols(c)
 		for (let i = 0; i < 9; i++) {
-			col.forEach(num => this.notes[i][j].delete(num));
-			if (this.notes[i][j].size == 1) {
-				putVal(i, c, this.notes[i][j].values().next().value);
+			col.forEach(num => this.notes[i][c].delete(num));
+			if (this.notes[i][c].size == 1) {
+				putVal(i, c, this.notes[i][c].values().next().value);
 			}
 		}
 	}
