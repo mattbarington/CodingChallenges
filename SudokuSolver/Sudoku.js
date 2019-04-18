@@ -63,8 +63,14 @@ class Board {
 		}			
 	}
 	
-	clearCol(col) {
-		console.log(col)
+	clearCol(c) {
+		let col = getCols(c)
+		for (let i = 0; i < 9; i++) {
+			col.forEach(num => this.notes[i][j].delete(num));
+			if (this.notes[i][j].size == 1) {
+				putVal(i, c, this.notes[i][j].values().next().value);
+			}
+		}
 	}
 	
 	clearBox(b) {
@@ -83,6 +89,5 @@ class Board {
 		}	
 	}
 }
-
 
 console.log("hello");
