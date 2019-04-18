@@ -2,8 +2,11 @@ class Board {
 	constructor(board) {
 		this.board = board;
 		this.notes = new Array[9];
-		for (var i = 0 ; i < 9; i++)
+		for (var i = 0 ; i < 9; i++) {
 			notes[i] = new Array[9];
+			for (let j = 0; j < 9; j++)
+				notes[i][j] = new Set()
+		}
 		this.unsolved = 81;
 		this.rows = new Array();
 		this.cols = new Array();
@@ -13,6 +16,10 @@ class Board {
 				putVal(i, j, board[i][j]);
 			}
 		}
+	}
+
+	boxCoord(b) {
+		return [(b / 3) * 3, (b % 3) * 3]
 	}
 
 	boxNum(r,c) {
@@ -48,17 +55,32 @@ class Board {
 	}
 	
 	clearRow(r) {
-		var row = getRow(r)
-		this.notes[r] = this.notes[r].filter( ( num ) => !row.includes(num) );
-		
+		let row = getRow(r)
+		for (let i = 0; i < 9; i++) {
+			this.notes[r][i] = this.notes[r][i].filter(num => !row.has(num));
+			if (this.notes[r][i].length == 1)
+				putVal(r, i, this.notes[r][i][0]);	
+		}			
 	}
 	
 	clearCol(col) {
-		get
+		console.log(col)
 	}
 	
-	clearBox() {
-		
+	clearBox(b) {
+		let box = this.boxes[b];
+		const [row, col] = boxCoord(b);
+		for (let i = row; i < row + 3; i++) {
+			for (let j = col; j < col + 3; j++) {
+				box.forEach(num => this.notes[i][j].delete(num))
+				//this.notes[i, j] = this.notes[i][j].filter(num => !box.has(num));
+			}
+		}
+		this.notes[r] = this.notes[r].filter( ( num ) => !row.includes(num) );
+		for (let i = 0; i < 9; i++) {
+			if (this.notes[r][i].length == 1)
+				putVal(r, i, this.notes[r][i][0]);
+		}	
 	}
 	
 }
