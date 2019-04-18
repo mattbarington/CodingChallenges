@@ -134,7 +134,28 @@ class Board {
 	}
 
 	findLonerInBox(b) {
-
+		let counts = Array[10];
+		let lonerExists = true;
+		const [row, col] = boxCoord(b);
+		while (lonerExists) {
+			lonerExists = false
+			counts.forEach(c => c = 0)
+			for (let i = row; i < row + 3; i++) {
+				for (let j = col; j < col + 3; j++) {
+					this.notes[i][j].forEach(p => counts[p]++);
+				}
+			}
+			for (let n = 1; n <=9; n++) {
+				if (counts[n] == 1) {
+					lonerExists = true;
+					for (let i = 0; i < 9; i++) {
+						if (this.notes[row][col].has(n)) {
+							putVal(row,col,n);
+						}
+					}
+				}
+			}
+		}
 	}
 
 }
