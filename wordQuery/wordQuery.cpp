@@ -43,13 +43,31 @@ bool isPureWildcard(string str) {
     return true;
 }
 
+void putInTrie(std::map<int, WildcardTrie>& wordTries, std::string str) {
+    if (wordTries.find(str.length()) == wordTries.end()) {
+        wordTries.insert(std::pair<int, WildcardTrie>(str.length(), WildcardTrie()));
+    }
+    auto it = wordTries.find(str.length());
+    it->second.insert(str);
+}
+
+bool isMember(std::map<int, WildcardTrie>& wordTries, std::string query) {
+    auto it = wordTries.find(query.length());
+    if (isPureWildcard(query)) {    // query is made up of all wildcards: 
+                                    //  would match any word with same length
+        return it != wordTries.end();
+    }
+    WildcardTrie* root = &it->second;
+    return root->search(query);
+}
+
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         std::cerr << "No filename provided. Exiting\n";
         exit(1);
     }
-    WildcardTrie words;
-    vector<string> wordbase;
+
+    std::map<int, WildcardTrie> wordbase;
     std::ifstream fin;
     fin.open(argv[1]);
     if (!fin.is_open()) {
@@ -58,13 +76,8 @@ int main(int argc, char* argv[]) {
     }
     string in;
     while (fin>>in) {
-        wordbase.push_back(in);
+        putInTrie(wordbase, in);
     }
-    for (string s : wordbase) {
-        std::cout << s << std::endl;
-    }
-    words.insert("blah");
-    std::cout << "inserted";
     string query = "";
     while (std::cin >> query) {
         std::cout << "Searching for matches to '" << query << "': ";
