@@ -63,6 +63,8 @@ int main(int argc, char* argv[]) {
     for (string s : wordbase) {
         std::cout << s << std::endl;
     }
+    words.insert("blah");
+    std::cout << "inserted";
     string query = "";
     while (std::cin >> query) {
         std::cout << "Searching for matches to '" << query << "': ";

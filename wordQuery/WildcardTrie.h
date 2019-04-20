@@ -18,6 +18,9 @@ class WildcardTrie {
   private:
     TrieNode* root;
   public:
+    WildcardTrie() {
+        root = new TrieNode();
+    }
     void insert(std::string str) {
         TrieNode* current = root;
         for (char c : str) {
@@ -33,7 +36,35 @@ class WildcardTrie {
         }
         current->endOfWord = true;
     }
-    bool isMember(std::string query);
+
+    bool searchRecursive(TrieNode* current, std::string query, int index) {
+        if (!current) {
+            return false;
+        }
+        if (index == query.length()) {
+            return current->endOfWord;
+        }
+        char c = query[index];
+        if (c == '*') { //wildcard character. Recurse on all children.
+            for (auto it : current->children) {
+                if (searchRecursive(it.second, query, index + 1))
+                    return true;
+            }
+            return false;
+        } else {
+            auto it = current->children.find(c);
+            if (it == current->children.end()) {
+                return false;
+            } else {
+                TrieNode* node = it->second;
+                return searchRecursive(node, query, index + 1);
+            }
+        }
+    }
+
+    bool search(std::string query) {
+        return searchRecursive(root, query, 0);
+    }
     void remove(std::string str);
 };
 
