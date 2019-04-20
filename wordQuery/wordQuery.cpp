@@ -29,16 +29,18 @@ bool match(string word, string query) {
 
 bool isMember(vector<string> words, string query) {
     for (auto word : words) {
-        if (match(word, query))
+        if (match(word, query)) {
             return true;
+        }
     }
     return false;
 }
 
 bool isPureWildcard(string str) {
     for (auto c : str) {
-        if (c != '*')
+        if (c != '*') {
             return false;
+        }
     }
     return true;
 }
@@ -75,16 +77,17 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
     string in;
-    while (fin>>in) {
+    while (fin >> in) {
         putInTrie(wordbase, in);
     }
     string query = "";
     while (std::cin >> query) {
         std::cout << "Searching for matches to '" << query << "': ";
-        if (isMember(wordbase, query))
+        if (isMember(wordbase, query)) {
             std::cout << "Success\n";
-        else
+        } else {
             std::cout << "Fail\n";
+        }
     }
 
     return 0;
